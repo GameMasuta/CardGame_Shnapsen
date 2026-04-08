@@ -2,6 +2,15 @@
 
 ローカルPCで動く、対CPU専用のシュナプセン実装です。ブラウザで開くだけで遊べます。
 
+## 特徴
+
+- 2人用カードゲーム「シュナプセン」のローカルWebアプリ
+- 対CPU戦
+- CPU難易度 3段階
+- マリッジ、切札J交換、クローズ、66点宣言に対応
+- 7ゲームポイント先取
+- カード移動アニメーションと得点ダイアログ付き
+
 ## 起動方法
 
 1. `index.html` をブラウザで開きます。
@@ -11,7 +20,7 @@
 必要なら簡易サーバーでも起動できます。
 
 ```bash
-cd /Users/masuta/Documents/work/codex
+cd schnapsen
 python3 -m http.server 8000
 ```
 
@@ -22,7 +31,7 @@ python3 -m http.server 8000
 ロジック確認用の簡易テストを追加しています。
 
 ```bash
-cd /Users/masuta/Documents/work/codex
+cd schnapsen
 node test.js
 ```
 
