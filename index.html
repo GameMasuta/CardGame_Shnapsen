@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>シュナプセン</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Schnapsen Local Match</p>
+        <h1>シュナプセン</h1>
+        <p class="subtitle">ローカルPCで遊べる、対CPU専用の2人用カードゲームです。</p>
+      </div>
+      <div class="control-panel">
+        <label for="difficulty">CPU難易度</label>
+        <select id="difficulty">
+          <option value="easy">易しい (Easy)</option>
+          <option value="normal" selected>普通 (Normal)</option>
+          <option value="difficult">難しい (Difficult)</option>
+        </select>
+        <button id="new-match-button" class="primary">新しい試合を開始</button>
+      </div>
+    </header>
+
+    <main class="table">
+      <section class="scoreboard panel">
+        <div>
+          <h2>ゲームポイント</h2>
+          <p id="game-score">あなた 0 - 0 CPU</p>
+        </div>
+        <div>
+          <h2>ディール得点</h2>
+          <p id="deal-score">あなた 0 - 0 CPU</p>
+        </div>
+        <div>
+          <h2>状態</h2>
+          <p id="phase-label">準備中</p>
+        </div>
+        <div>
+          <h2>ディール数</h2>
+          <p id="deal-number">第1ディール</p>
+        </div>
+      </section>
+
+      <section class="board-grid">
+        <div class="panel opponent-area">
+          <div class="panel-header">
+            <h2>CPU</h2>
+            <span id="cpu-summary">手札 5枚</span>
+          </div>
+          <div id="cpu-hand" class="card-row cpu-hand"></div>
+          <div class="info-strip">
+            <span id="cpu-won">獲得トリック 0</span>
+            <span id="cpu-marriages">マリッジ なし</span>
+          </div>
+        </div>
+
+        <div class="panel center-area">
+          <div class="talon-block">
+            <div>
+              <h2>山札</h2>
+              <p id="talon-count">残り 10枚</p>
+            </div>
+            <div class="talon-visuals">
+              <div id="stock-pile" class="stock-pile"></div>
+              <div>
+                <p class="mini-label">切札表示</p>
+                <div id="trump-card" class="card-slot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="trick-block">
+            <div>
+              <p class="mini-label">リード</p>
+              <p id="leader-label">未開始</p>
+            </div>
+            <div class="trick-cards">
+              <div>
+                <p class="mini-label">CPUの場札</p>
+                <div id="cpu-trick-card" class="card-slot"></div>
+              </div>
+              <div>
+                <p class="mini-label">あなたの場札</p>
+                <div id="human-trick-card" class="card-slot"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions-block">
+            <button id="exchange-button">切札Jを交換</button>
+            <button id="close-button">クローズする</button>
+            <button id="declare-button" class="primary">66点を宣言</button>
+          </div>
+        </div>
+
+        <div class="panel player-area">
+          <div class="panel-header">
+            <h2>あなた</h2>
+            <span id="human-summary">手札 5枚</span>
+          </div>
+          <div id="human-hand" class="card-row"></div>
+          <div class="info-strip">
+            <span id="human-won">獲得トリック 0</span>
+            <span id="human-marriages">マリッジ なし</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel log-panel">
+        <h2>ゲームログ</h2>
+        <div id="log" class="log"></div>
+      </section>
+
+      <section class="panel rules-panel">
+        <h2>実装ルール</h2>
+        <p>参照元のルールに沿って、20枚デッキ、マリッジ、切札J交換、クローズ、66点宣言、7ゲームポイント先取を実装しています。</p>
+      </section>
+    </main>
+  </div>
+
+  <div id="animation-layer" class="animation-layer" aria-hidden="true"></div>
+  <div id="score-overlay" class="score-overlay" aria-live="polite" aria-hidden="true">
+    <div class="score-overlay-card">
+      <p id="score-overlay-title" class="score-overlay-title"></p>
+      <p id="score-overlay-body" class="score-overlay-body"></p>
+      <p class="score-overlay-hint">クリック、Space、Enter で閉じます</p>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

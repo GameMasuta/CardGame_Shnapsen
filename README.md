@@ -1,0 +1,42 @@
+# シュナプセン
+
+ローカルPCで動く、対CPU専用のシュナプセン実装です。ブラウザで開くだけで遊べます。
+
+## 起動方法
+
+1. `index.html` をブラウザで開きます。
+2. 難易度を `Easy / Normal / Difficult` から選びます。
+3. `新しい試合を開始` を押してプレイします。
+
+必要なら簡易サーバーでも起動できます。
+
+```bash
+cd /Users/masuta/Documents/work/codex
+python3 -m http.server 8000
+```
+
+その場合は `http://localhost:8000` を開いてください。
+
+## テスト
+
+ロジック確認用の簡易テストを追加しています。
+
+```bash
+cd /Users/masuta/Documents/work/codex
+node test.js
+```
+
+## 実装内容
+
+- 20枚デッキのシュナプセン
+- 対CPU戦
+- CPU難易度 3段階
+- マリッジ宣言
+- 切札J交換
+- クローズ
+- 66点宣言
+- 7ゲームポイント先取
+
+## 参照ルール
+
+- [gamefarm.jp のシュナプセン解説](https://gamefarm.jp/rule/schnapsen.html)
