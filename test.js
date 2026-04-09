@@ -28,6 +28,7 @@ function loadGame() {
   const context = {
     console,
     document: {
+      body: stub(),
       getElementById: () => stub(),
       createElement: () => stub(),
       addEventListener: () => {},

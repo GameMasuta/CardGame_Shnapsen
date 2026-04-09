@@ -26,6 +26,7 @@ const difficultyProfiles = {
 
 const state = {
   difficulty: "normal",
+  darkMode: false,
   gamePoints: { human: 0, cpu: 0 },
   carryOver: 0,
   dealer: PLAYER_CPU,
@@ -48,6 +49,7 @@ const state = {
 
 const els = {
   difficulty: document.getElementById("difficulty"),
+  darkModeToggle: document.getElementById("dark-mode-toggle"),
   newMatchButton: document.getElementById("new-match-button"),
   exchangeButton: document.getElementById("exchange-button"),
   closeButton: document.getElementById("close-button"),
@@ -82,6 +84,10 @@ function setup() {
     state.difficulty = els.difficulty.value;
     render();
   });
+  els.darkModeToggle.addEventListener("change", () => {
+    state.darkMode = els.darkModeToggle.checked;
+    applyTheme();
+  });
   els.newMatchButton.addEventListener("click", startNewMatch);
   els.exchangeButton.addEventListener("click", () => {
     if (canExchangeTrump(PLAYER_HUMAN)) {
@@ -103,6 +109,10 @@ function setup() {
   els.scoreOverlay.addEventListener("click", closeOverlay);
   document.addEventListener("keydown", handleOverlayKeydown);
   startNewMatch();
+}
+
+function applyTheme() {
+  document.body.classList.toggle("dark-mode", state.darkMode);
 }
 
 function nextActionToken() {
