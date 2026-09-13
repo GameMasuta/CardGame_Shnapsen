@@ -35,6 +35,10 @@ cd schnapsen
 node test.js
 ```
 
+## 開発引き継ぎ
+
+VS Code や別の Codex に開発を引き継ぐ場合は、[HANDOFF.md](./HANDOFF.md) を参照してください。
+
 ## 実装内容
 
 - 20枚デッキのシュナプセン
