@@ -723,6 +723,10 @@ function maybeRunCpuTurn() {
   if (state.trick.plays.cpu) {
     return;
   }
+  // A follower must wait until the human leader has played.
+  if (state.trick.leader === PLAYER_HUMAN && !state.trick.plays.human) {
+    return;
+  }
   if (state.trick.leader === PLAYER_CPU && !state.trick.plays.human) {
     cpuBetweenTricksDecisions();
     if (state.dealFinished) {
@@ -934,7 +938,7 @@ function createCardElement(card, legal = true, marriageOption = null, options = 
     wrapper.innerHTML = `
       <div class="card-rank">${card.rank}</div>
       <div class="card-suit">${suitLabel(card.suit)}</div>
-      ${marriageOption ? `<div class="marriage-badge">Marriage ${marriageOption.points}</div>` : ""}
+      ${marriageOption ? `<div class="marriage-badge">+${marriageOption.points}</div>` : ""}
     `;
   }
   return wrapper;

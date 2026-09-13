@@ -317,9 +317,12 @@ body.dark-mode .toggle-slider {
   opacity: 0;
 }
 
+@media (hover: hover) and (pointer: fine) {
 .card:hover:not(.disabled) {
   transform: translateY(-4px);
   box-shadow: 0 16px 28px rgba(74, 49, 26, 0.18);
+}
+
 }
 
 .card.disabled {
@@ -476,4 +479,153 @@ button:disabled {
   .hero {
     align-items: stretch;
   }
+}
+
+
+/* Keep touch controls generous without preventing pinch zoom. */
+button, select, .toggle-row {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+.card { touch-action: manipulation; }
+button:focus-visible, select:focus-visible,
+.toggle-control input:focus-visible + .toggle-slider {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+.toggle-slider { pointer-events: none; }
+.hand-hint {
+  margin-bottom: 10px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.score-overlay {
+  padding: 16px;
+  overflow-y: auto;
+}
+.score-overlay-card {
+  min-width: 0;
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .app-shell {
+    padding: max(12px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(20px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+  }
+  .hero { gap: 12px; margin-bottom: 12px; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1rem; }
+  .subtitle { font-size: 0.85rem; }
+  .eyebrow { font-size: 0.7rem; }
+  .control-panel {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    align-items: center;
+  }
+  .control-panel > label:first-child { grid-column: 1; }
+  .control-panel select { grid-column: 2; min-width: 0; padding: 8px; font-size: 16px; }
+  .toggle-row { padding: 8px; gap: 4px; font-size: 0.8rem; }
+  .toggle-slider { width: 46px; }
+  .toggle-control input:checked + .toggle-slider::after { transform: translateX(16px); }
+  #new-match-button { padding: 8px; font-size: 0.85rem; }
+  .table, .board-grid { gap: 10px; }
+  .panel { border-radius: 14px; }
+  .scoreboard {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 12px;
+    font-size: 0.85rem;
+  }
+  .scoreboard h2 { font-size: 0.75rem; }
+  .opponent-area, .player-area, .center-area, .log-panel, .rules-panel { padding: 10px; min-width: 0; }
+  .panel-header { margin-bottom: 8px; font-size: 0.8rem; }
+  .info-strip { gap: 4px 8px; margin-top: 8px; font-size: 0.75rem; }
+  .card-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+    min-height: 0;
+  }
+  .card-row .card {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 0.69;
+    min-width: 0;
+    padding: 6px;
+    border-radius: 9px;
+  }
+  .cpu-hand .card { aspect-ratio: 1.5; }
+  .card-rank { font-size: 1.15rem; }
+  .card-suit { font-size: 1.25rem; }
+  .marriage-badge {
+    left: 2px;
+    bottom: 3px;
+    padding: 2px 3px;
+    font-size: 0.65rem;
+  }
+  .center-area { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .talon-block, .trick-block { gap: 8px; min-width: 0; }
+  .talon-visuals, .trick-cards { gap: 5px; align-items: end; justify-content: flex-start; }
+  .center-area .card-slot, .center-area .stock-pile {
+    width: clamp(48px, 15vw, 72px);
+    height: clamp(70px, 21vw, 104px);
+    border-radius: 9px;
+    flex-shrink: 0;
+  }
+  .center-area .card { padding: 5px; border-radius: 9px; }
+  .mini-label { font-size: 0.65rem; margin-bottom: 4px; }
+  #talon-count, #leader-label { font-size: 0.8rem; }
+  .actions-block {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .actions-block button { padding: 10px 6px; font-size: 0.85rem; }
+  #declare-button { grid-column: 1 / -1; }
+  .log { max-height: 150px; font-size: 0.8rem; }
+  .rules-panel { font-size: 0.8rem; }
+}
+
+
+/* Secondary information stays available without pushing the hand down. */
+summary {
+  cursor: pointer;
+  min-height: 44px;
+  align-content: center;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.settings-panel { min-width: 240px; }
+.settings-panel[open] .control-panel { margin-top: 8px; }
+.rules-panel[open] p { margin-top: 8px; }
+body.dark-mode .log-entry {
+  background: #252d33;
+  border-color: #43505a;
+  color: #f3efe6;
+}
+body.dark-mode .log-entry strong { color: #c6b5a2; }
+@media (max-width: 600px) {
+  .hero { gap: 4px; margin-bottom: 8px; }
+  h1 { font-size: 1.45rem; }
+  .eyebrow, .subtitle { display: none; }
+  .settings-panel { min-width: 0; }
+  .settings-panel > summary { font-size: 0.85rem; }
+  .scoreboard { padding: 8px 10px; gap: 4px 8px; }
+  .opponent-area .info-strip { margin-top: 4px; }
+  .cpu-hand .card { aspect-ratio: 2.5; }
+  .center-area { gap: 6px 10px; }
+  .talon-block, .trick-block { gap: 4px; }
+  .actions-block { gap: 6px; }
+  .actions-block button { min-height: 44px; padding: 6px; }
+  .panel-header { margin-bottom: 4px; }
+  .hand-hint { margin-bottom: 6px; }
+  .log-panel, .rules-panel { padding: 4px 10px; }
 }

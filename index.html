@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>シュナプセン</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -12,9 +12,11 @@
       <div>
         <p class="eyebrow">Schnapsen Local Match</p>
         <h1>シュナプセン</h1>
-        <p class="subtitle">ローカルPCで遊べる、対CPU専用の2人用カードゲームです。</p>
+        <p class="subtitle">PC・スマートフォンで遊べる、対CPU専用の2人用カードゲームです。</p>
       </div>
-      <div class="control-panel">
+      <details class="settings-panel">
+        <summary>ゲーム設定</summary>
+        <div class="control-panel">
         <label for="difficulty">CPU難易度</label>
         <select id="difficulty">
           <option value="easy">易しい (Easy)</option>
@@ -29,7 +31,8 @@
           </span>
         </label>
         <button id="new-match-button" class="primary">新しい試合を開始</button>
-      </div>
+        </div>
+      </details>
     </header>
 
     <main class="table">
@@ -109,6 +112,7 @@
             <h2>あなた</h2>
             <span id="human-summary">手札 5枚</span>
           </div>
+          <p class="hand-hint">出せるカードをタップしてプレイ</p>
           <div id="human-hand" class="card-row"></div>
           <div class="info-strip">
             <span id="human-won">獲得トリック 0</span>
@@ -117,15 +121,15 @@
         </div>
       </section>
 
-      <section class="panel log-panel">
-        <h2>ゲームログ</h2>
+      <details class="panel log-panel">
+        <summary>ゲームログ</summary>
         <div id="log" class="log"></div>
-      </section>
+      </details>
 
-      <section class="panel rules-panel">
-        <h2>実装ルール</h2>
+      <details class="panel rules-panel">
+        <summary>実装ルール</summary>
         <p>参照元のルールに沿って、20枚デッキ、マリッジ、切札J交換、クローズ、66点宣言、7ゲームポイント先取を実装しています。</p>
-      </section>
+      </details>
     </main>
   </div>
 
@@ -134,7 +138,7 @@
     <div class="score-overlay-card">
       <p id="score-overlay-title" class="score-overlay-title"></p>
       <p id="score-overlay-body" class="score-overlay-body"></p>
-      <p class="score-overlay-hint">クリック、Space、Enter で閉じます</p>
+      <p class="score-overlay-hint">タップ、クリック、Space、Enter で閉じます</p>
     </div>
   </div>
 

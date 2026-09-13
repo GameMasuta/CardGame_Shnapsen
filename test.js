@@ -61,7 +61,13 @@ this.__exports = {
   awardGamePoints,
   chooseCpuPlay,
   shouldCpuDeclareVictory,
-  otherPlayer
+  otherPlayer,
+  maybeRunCpuTurn,
+  setCpuTurnSpies: (choose, commit, decisions) => {
+    chooseCpuPlay = choose;
+    commitPlay = commit;
+    cpuBetweenTricksDecisions = decisions;
+  }
 };`,
     context,
   );
@@ -156,6 +162,34 @@ function runTests() {
 
   game.state.players.cpu.trickPoints = 66;
   assert(game.shouldCpuDeclareVictory() === true, "CPU は 66 点以上でのみ勝利宣言すべきです。");
+
+  // Exercise the turn entry point without animations or DOM rendering.
+  const turns = loadGame();
+  let choices = 0;
+  let commits = 0;
+  let decisions = 0;
+  turns.setCpuTurnSpies(
+    () => { choices += 1; return { cardId: "S-A" }; },
+    () => { commits += 1; },
+    () => { decisions += 1; },
+  );
+  turns.state.trick = { leader: "human", plays: { human: null, cpu: null } };
+  turns.maybeRunCpuTurn();
+  assert(choices === 0 && commits === 0, "人間の先手待ちではCPU処理を開始しないこと。");
+  assert(turns.state.log.length === 0, "正常な待機時は停止ログを出さないこと。");
+  turns.state.trick.plays.human = card("H", "J");
+  turns.maybeRunCpuTurn();
+  assert(commits === 1, "人間が出した後はCPUが応答すること。");
+  turns.state.trick = { leader: "cpu", plays: { human: null, cpu: null } };
+  turns.maybeRunCpuTurn();
+  assert(commits === 2 && decisions === 1, "CPU先手では思考とプレイを実行すること。");
+  turns.state.trick.plays.cpu = card("S", "A");
+  turns.maybeRunCpuTurn();
+  assert(commits === 2, "CPUが場札を出した後は重複してプレイしないこと。");
+  turns.state.trick.plays.cpu = null;
+  turns.state.overlayVisible = true;
+  turns.maybeRunCpuTurn();
+  assert(commits === 2, "得点ダイアログ表示中はCPUが進行しないこと。");
 
   console.log("All tests passed");
 }
